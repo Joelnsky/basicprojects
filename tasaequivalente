@@ -1,0 +1,48 @@
+#Tasas Rendimiento en Curva
+
+print ("TASAS DE INTERÉS... ¿CUÁL CONVIENE MÁS?")
+print ("-" * 10)
+
+print ("Primero, vamos a registrar la tasa de interés y el plazo principal")
+t1 = float(input("Digite la tasa de interés principal (con punto decimal y sin %) => "))
+t1 /= 100
+p1 = float(input("Digite el plazo de la tasa de interés principal (expresado en días) => "))
+
+print ("-" * 10)
+print ("Ahora, vamos a registrar la tasa de interés y el plazo con la que desea compararla")
+t2 = float(input("Digite la tasa de interés a comparar (con punto decimal y sin %) => "))
+t2 /= 100
+p2 = float(input("Digite el plazo de la tasa de interés a comparar (expresado en días) => "))
+
+print ("-" * 10)
+tasabuscada = ((1 + (t1 * p1 / 360)) ** (p2 / p1) - 1) * (360 / p2)
+
+print ("Tu tasa principal del ", round(t1*100,2), "% con plazo de ", p1, " días, equivale a ", round(tasabuscada*100,2), "% con respecto al plazo de ", p2, " días")
+
+if tasabuscada > t2:
+  print ("Ergo, te conviene la Tasa del ", round(t1*100,2), "% porque es mayor que la tasa a comparar equivalente al periodo de tiempo de ", p2, " días")  
+elif tasabuscada < t2:
+  print ("Ergo, te conviene la Tasa del ", round(t2*100,2), "% porque dicha tasa es mayor que la tasa principal equivalente al periodo de tiempo de ", p2, " días")
+
+print ("-" * 10)
+user_option = input("¿Desea conocer cuál sería el rendimiento esperado para la mejor tasa? Digite 'si' o 'no': ")
+user_option = user_option.lower()
+
+options = ("si","no")
+
+if not user_option in options:
+  print ("Opción inválida. Gracias por usas nuestros servicios")
+
+if user_option == "si":
+  inversion = float(input("Digite la cantidad para aplicar la tasa respectiva: $"))
+  tax = float(input("Digite la tasa impositiva con punto decimal (si no la conoce digite 0): "))
+  if tasabuscada > t2:
+    monto = (inversion * (1 + t1)) * (1 - tax/100)
+    print ("Para un capital inicial de $", inversion, " el capital final será de $", monto," para un periodo de ", p1, " días.")
+  elif tasabuscada < t2:
+    monto = (inversion * (1 + t2)) * (1 - tax/100)
+    print ("Para un capital inicial de $", inversion, " el capital final será de $", monto," para un periodo de ", p2, " días.")
+elif user_option == "no":
+   print ("Gracias por utilizar nuestros servicios")
+
+print ("-" * 10) 
